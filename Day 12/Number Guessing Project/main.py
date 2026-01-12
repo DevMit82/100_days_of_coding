@@ -35,7 +35,7 @@ def check_guess(right_number,guess):
         print(f"You have {attempts} attempts remaining to guess the number")
 
 # TODO print a welcome message and start the game
-print("Welcome to the Number Guessing Name!")
+print("Welcome to the Number Guessing Game!")
 print("I'm thinking of a number between 1 and 100")
 
 # # TODO Ask user for difficulty
