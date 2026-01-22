@@ -70,15 +70,3 @@ while not game_over:
         print(logo)
         print(f"Sorry, that's wrong. Final score: {score}")
         game_over = True
-
-
-# TODO print "You 're right + current score
-###########################################################
-# TODO game logic:
-# check if follower of a is higher then follower of b
-# check if user answer is right
-# give user a score if answer is right
-# switch compare b to compare a
-# ask next question
-# end the game if answer is wrong
-

@@ -30,3 +30,96 @@ resources = {
     "coffee": 100,
 }
 
+def check_resources(drink):
+    if drink  == "espresso":
+        if resources["water"] < MENU["espresso"]["ingredients"]["water"]:
+            print("Sorry there is not enough water")
+            return False
+        elif resources["coffee"] < MENU["espresso"]["ingredients"]["coffee"]:
+            print("Sorry there is not enough coffee")
+            return False
+    elif drink == "latte":
+        if resources["water"] < MENU["latte"]["ingredients"]["water"]:
+            print("Sorry there is not enough water")
+            return False
+        elif resources["coffee"] < MENU["latte"]["ingredients"]["coffee"]:
+            print("Sorry there is not enough coffee")
+            return False
+        elif resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
+            print("Sorry there is not enough milk.")
+            return False
+
+    elif drink == "cappuccino":
+        if resources["water"] < MENU["cappuccino"]["ingredients"]["water"]:
+            print("Sorry there is not enough water")
+            return False
+        elif resources["coffee"] < MENU["cappuccino"]["ingredients"]["coffee"]:
+            print("Sorry there is not enough coffee")
+            return False
+        elif resources["milk"] < MENU["cappuccino"]["ingredients"]["milk"]:
+            print("Sorry there is not enough milk.")
+            return False
+
+    return True
+
+turn_off = False
+check = False
+money = 0
+
+while not turn_off:
+    # TODO ask user for input
+    user_select = input("What would you like? (espresso/latte/cappuccino)").lower()
+    # TODO check user input
+    # user can choose "off", "report" or a drink
+    # TODO turn off the coffee machine
+    if user_select == "off":
+        turn_off = True
+    elif user_select == "report":
+    # TODO print resources line bye line
+        for key, value in resources.items():
+            print(f"{key}: {value}")
+        print(f"money: ${money}")
+        continue
+    # TODO check resources
+    elif user_select == "espresso":
+        check = check_resources("espresso")
+    elif user_select == "latte":
+        check = check_resources("latte")
+    elif user_select == "cappuccino":
+        check = check_resources("cappuccino")
+
+    if check is True:
+        print("Please insert coins!")
+        quarters = float(input("how many quarters? "))
+        dimes = float(input("how many dimes? "))
+        nickles = float(input("how many nickles? "))
+        pennies = float(input("how many pennies? "))
+    # TODO calculate coins
+        money = (quarters * 0.25) + (dimes * 0.10) + (nickles * 0.05) +(pennies * 0.01)
+
+        if user_select == "espresso":
+            # calculate change
+            change = money - MENU["espresso"]["cost"]
+            # update resources
+            resources["water"] = resources["water"] - MENU["espresso"]["ingredients"]["water"]
+            resources["coffee"] = resources["coffee"] - MENU["espresso"]["ingredients"]["coffee"]
+        elif user_select == "latte":
+            # calculate change
+            change = money - MENU["latte"]["cost"]
+            # update resources
+            resources["water"] = resources["water"] - MENU["latte"]["ingredients"]["water"]
+            resources["coffee"] = resources["coffee"] - MENU["latte"]["ingredients"]["coffee"]
+            resources["milk"] = resources["milk"] - MENU["latte"]["ingredients"]["milk"]
+        elif user_select == "cappuccino":
+            # calculate change
+            change = money - MENU["cappuccino"]["cost"]
+            # update resources
+            resources["water"] = resources["water"] - MENU["cappuccino"]["ingredients"]["water"]
+            resources["coffee"] = resources["coffee"] - MENU["cappuccino"]["ingredients"]["coffee"]
+            resources["milk"] = resources["milk"] - MENU["cappuccino"]["ingredients"]["milk"]
+
+        # TODO update money
+        money = money - change
+        # TODO tell user to take product
+        print(f"Here is ${change} in change")
+        print(f"Here is your {user_select}. Enjoy!")
