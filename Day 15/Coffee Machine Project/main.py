@@ -30,8 +30,9 @@ resources = {
     "coffee": 100,
 }
 
+
 def check_resources(drink):
-    if drink  == "espresso":
+    if drink == "espresso":
         if resources["water"] < MENU["espresso"]["ingredients"]["water"]:
             print("Sorry there is not enough water")
             return False
@@ -62,20 +63,21 @@ def check_resources(drink):
 
     return True
 
+
 turn_off = False
 check = False
 money = 0
 
 while not turn_off:
     # TODO ask user for input
-    user_select = input("What would you like? (espresso/latte/cappuccino)").lower()
+    user_select = input("What would you like? (espresso/latte/cappuccino) ").lower()
     # TODO check user input
     # user can choose "off", "report" or a drink
     # TODO turn off the coffee machine
     if user_select == "off":
         turn_off = True
     elif user_select == "report":
-    # TODO print resources line bye line
+        # TODO print resources line bye line
         for key, value in resources.items():
             print(f"{key}: {value}")
         print(f"money: ${money}")
@@ -87,39 +89,48 @@ while not turn_off:
         check = check_resources("latte")
     elif user_select == "cappuccino":
         check = check_resources("cappuccino")
+    else:
+        print("Choice not exists. Please try again!")
+        continue
 
     if check is True:
         print("Please insert coins!")
         quarters = float(input("how many quarters? "))
         dimes = float(input("how many dimes? "))
-        nickles = float(input("how many nickles? "))
+        nickels = float(input("how many nickles? "))
         pennies = float(input("how many pennies? "))
-    # TODO calculate coins
-        money = (quarters * 0.25) + (dimes * 0.10) + (nickles * 0.05) +(pennies * 0.01)
+        # TODO calculate coins
+        inserted_coins = (quarters * 0.25) + (dimes * 0.10) + (nickels * 0.05) + (pennies * 0.01)
 
-        if user_select == "espresso":
+        if user_select == "espresso" and inserted_coins >= MENU["espresso"]["cost"]:
             # calculate change
-            change = money - MENU["espresso"]["cost"]
+            change = inserted_coins - MENU["espresso"]["cost"]
             # update resources
             resources["water"] = resources["water"] - MENU["espresso"]["ingredients"]["water"]
             resources["coffee"] = resources["coffee"] - MENU["espresso"]["ingredients"]["coffee"]
-        elif user_select == "latte":
+        elif user_select == "latte" and inserted_coins >= MENU["latte"]["cost"]:
             # calculate change
-            change = money - MENU["latte"]["cost"]
+            change = inserted_coins - MENU["latte"]["cost"]
             # update resources
             resources["water"] = resources["water"] - MENU["latte"]["ingredients"]["water"]
             resources["coffee"] = resources["coffee"] - MENU["latte"]["ingredients"]["coffee"]
             resources["milk"] = resources["milk"] - MENU["latte"]["ingredients"]["milk"]
-        elif user_select == "cappuccino":
+        elif user_select == "cappuccino" and inserted_coins >= MENU["cappuccino"]["cost"]:
             # calculate change
-            change = money - MENU["cappuccino"]["cost"]
+            change = inserted_coins - MENU["cappuccino"]["cost"]
             # update resources
             resources["water"] = resources["water"] - MENU["cappuccino"]["ingredients"]["water"]
             resources["coffee"] = resources["coffee"] - MENU["cappuccino"]["ingredients"]["coffee"]
             resources["milk"] = resources["milk"] - MENU["cappuccino"]["ingredients"]["milk"]
 
+            # give back money and ask again
+        else:
+            inserted_coins -= inserted_coins
+            print("Sorry that's not enough money. Money refunded.")
+            continue
+
         # TODO update money
-        money = money - change
+        money = inserted_coins - change
         # TODO tell user to take product
-        print(f"Here is ${change} in change")
+        print(f"Here is ${change:.2f} in change")
         print(f"Here is your {user_select}. Enjoy!")
