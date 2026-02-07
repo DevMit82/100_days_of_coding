@@ -1,15 +1,7 @@
-# import colorgram
-#
-# colors = colorgram.extract("image.jpg", 85)
-# lst_colors_tuple = []
-# for color in colors:
-#     color = (color.rgb.r, color.rgb.g, color.rgb.b)
-#     lst_colors_tuple.append(color)
-#
-# print(lst_colors_tuple)
-############################################################
 # TODO painting 10 x 10
-# TODO dotsize = 20, 50 steps from dot to dot
+# TODO dot size = 20
+# TODO 50 steps from dot to dot
+
 import turtle as t
 import random
 
