@@ -10,13 +10,12 @@ STARTING_MOVE_DISTANCE = 5
 # Speed increase applied when level goes up
 MOVE_INCREMENT = 10
 
-
 class CarManager(Turtle):
     def __init__(self):
         super().__init__()
-        self.list_of_cars = []            # Stores all active car objects
-        self.ht()                         # Hide the manager turtle (not visible in game)
-        self.car_speed = STARTING_MOVE_DISTANCE   # Current speed used for all cars
+        self.list_of_cars = []                      # Stores all active car objects
+        self.ht()                                   # Hide the manager turtle (not visible in game)
+        self.car_speed = STARTING_MOVE_DISTANCE     # Current speed used for all cars
 
     def move(self):
         # Move every car forward using the current speed

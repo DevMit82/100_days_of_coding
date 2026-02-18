@@ -9,7 +9,6 @@ MOVE_DISTANCE = 10
 # Finish line position
 FINISH_LINE_Y = 280
 
-
 class Player(Turtle):
     def __init__(self):
         super().__init__()
@@ -25,4 +24,3 @@ class Player(Turtle):
     def restart(self):
         # Reset player to starting position after reaching finish
         self.goto(x=0, y=-300)
-
