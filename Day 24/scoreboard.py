@@ -17,17 +17,14 @@ class Scoreboard(Turtle):
 
     def read_high_score(self):
         with open("data.txt", "r") as f:
-            read_data = f.read()
-            return int(read_data)
+            return int(f.read())
 
     def write_high_score(self):
         with open("data.txt", "w") as f:
-            string = str(self.high_score)
-            f.write(string)
+            f.write(str(self.high_score))
 
     def update_scoreboard(self):
         self.clear()
-        self.read_high_score()
         self.write(f"Score: {self.score} High Score: {self.high_score}", align=ALIGNMENT, font=FONT)
 
     def reset(self):
