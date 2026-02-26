@@ -1,5 +1,6 @@
 from turtle import Turtle, Screen
 import pandas
+import os
 
 # def get_mouse_click_coor(x, y):
 #     print(x, y)
@@ -19,7 +20,16 @@ state_list = data.state.to_list()
 
 STATES = 50
 score = 0
-answer_state = screen.textinput(title="Guess the State", prompt="What's another state's name?").title()
+
+with open("highscore", "r") as f:
+    highscore = f.read()
+
+
+player_name = screen.textinput(title="Guess the State", prompt="Please, enter your name!").title()
+if os.path.exists(f"states_to_learn_{player_name}.csv"):
+    os.remove(f"states_to_learn_{player_name}.csv")
+answer_state = screen.textinput(title="Guess the State", prompt="What's a state's name?").title()
+
 
 while score < STATES:
     if answer_state == "Exit":
@@ -39,4 +49,26 @@ while score < STATES:
                                         prompt="What's another state's name?").title()
 
 data = pandas.DataFrame(state_list)
-data.to_csv("states_to_learn.csv")
+data.to_csv(f"states_to_learn_{player_name}.csv")
+
+new_score = STATES - len(data)
+with open("highscore", "r") as f:
+    line = f.readline().strip()
+    parts = line.split(",")
+    player = parts[0]
+    highscore = int(parts[1])
+
+
+if new_score > int(highscore):
+    with open("highscore", "w") as f:
+        highscore = new_score
+        f.write(f"{player_name},{str(highscore)}")
+        print(f"Congratulations {player_name}!!! New Highscore!! You guessed {highscore} states correct.")
+
+elif player_name == player and new_score < highscore:
+    print(f"You guessed {new_score} states correct. "
+          f"No Highscore, but you are still the Best, {player_name}!")
+
+else:
+    print(f"You guessed {new_score} states correct. {player} guessed {int(highscore) - new_score} "
+          f"more than you {player_name}...")
