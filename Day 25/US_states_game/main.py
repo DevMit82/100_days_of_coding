@@ -58,7 +58,6 @@ with open("highscore", "r") as f:
     player = parts[0]
     highscore = int(parts[1])
 
-
 if new_score > int(highscore):
     with open("highscore", "w") as f:
         highscore = new_score
