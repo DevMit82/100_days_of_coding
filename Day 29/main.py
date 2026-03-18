@@ -88,7 +88,7 @@ entry_website.focus()
 
 entry_email = Entry(width=52)
 entry_email.grid(column=1, row=2, columnspan=2)
-entry_email.insert(0, string="uemit.cicek@gmx.de")
+entry_email.insert(0, string="devmit@mail.com")
 
 entry_pw = Entry(width=33)
 entry_pw.grid(column=1, row=3)
